@@ -1,0 +1,21 @@
+{
+  "compilerOptions": {
+    "lib": ["ES6"],
+    "moduleResolution": "node",
+    "noUnusedLocals": true,
+    "noUnusedParameters": true,
+    "esModuleInterop":true,
+    "removeComments": true,
+    "sourceMap": true,
+    "target": "ES6",
+    "outDir": "lib",
+    "allowUmdGlobalAccess": true,
+  },
+  "include": ["src/**/*.ts", "scripts/*.ts"],
+  "exclude": [
+    "node_modules/**/*",
+  ],
+  "ts-node": {
+    "require": ["tsconfig-paths/register"]
+  }
+}
