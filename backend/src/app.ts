@@ -4,7 +4,8 @@ import { Db, MongoClient } from "mongodb"
 const app: express.Application = express()
 const port = 3000
 
-var db: Db = null;
+var db: Db | null = null;
+const ID_CHARS = 8
 
 const getDb = async () => {
   // TODO ENV
@@ -23,9 +24,6 @@ const getDb = async () => {
   return db
 }
 
-app.use(express.json())
-
-
 type NewURL = {
   url?: string
 }
@@ -35,8 +33,6 @@ type URL = {
   url: string,
   timestamp: Date,
 }
-
-const ID_CHARS = 8
 
 const genId = () => {
   const azAZ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
@@ -49,6 +45,9 @@ const genId = () => {
   return id;
 }
 
+app.use(express.json())
+
+// behaiviour one
 app.put<null, { _id: string }, NewURL>
   ("/", async (req, res, next) => {
     // TODO validate
@@ -94,7 +93,19 @@ app.get("/:id", (req, res, next) => {
     })
 })
 
-// Error handler
+// TODO paginate
+app.get("/", (_req, res, next) => {
+  getDb()
+    .then(db => db.collection("urls").find(
+      { projection: { _id: 1, url: 1 } }))
+    .then(resp => res.json(resp))
+    .catch(error => {
+      db = null
+      next(error)
+    })
+})
+
+// TODO Error handler
 app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
   db = null
   res.status(422)
@@ -104,5 +115,5 @@ app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
 })
 
 app.listen(port, () => {
-  // TODO setup db
+  // TODO setup db here
 })
