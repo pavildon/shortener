@@ -35,7 +35,7 @@ type URL = {
 }
 
 const genId = () => {
-  const azAZ = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789"
+  const azAZ = "abcdefghijklmnopqrstuvwxyz0123456789"
   var id = ""
 
   for (var i = 0; i < ID_CHARS; i++) {
