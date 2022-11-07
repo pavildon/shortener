@@ -1,119 +1,28 @@
 import express, { NextFunction, Request, Response } from "express"
-import { Db, MongoClient } from "mongodb"
 
-const app: express.Application = express()
-const port = 3000
+import { getURLs } from "./database"
+import { makeHandlers } from "./handlers"
 
-var db: Db | null = null;
-const ID_CHARS = 8
+const handlers = makeHandlers(getURLs)
 
-const getDb = async () => {
-  // TODO ENV
-  const conn_str = "mongodb://shortener:shortenerpass@10.6.51.83:27017"
-  const db_name = "shortener"
+const port = process.env["SHORTENER_PORT"] || 3001
+const application: express.Application = express()
 
-  if (!db) {
-    const client: MongoClient = new MongoClient(conn_str, {
-      connectTimeoutMS: 5000,
-      serverSelectionTimeoutMS: 5000,
-    })
-    await client.connect();
-    db = client.db(db_name)
-  }
+application.use(express.json())
+application.get("/", handlers.get)
+application.get("/:_id", handlers.getId)
+application.put("/", handlers.put)
+application.delete("/:_id", handlers.del)
 
-  return db
-}
-
-type NewURL = {
-  url?: string
-}
-
-type URL = {
-  _id: string,
-  url: string,
-  timestamp: Date,
-}
-
-const genId = () => {
-  const azAZ = "abcdefghijklmnopqrstuvwxyz0123456789"
-  var id = ""
-
-  for (var i = 0; i < ID_CHARS; i++) {
-    id = id.concat(azAZ.at(Math.floor(Math.random() * azAZ.length)));
-  }
-
-  return id;
-}
-
-app.use(express.json())
-
-// behaiviour one
-app.put<null, { _id: string }, NewURL>
-  ("/", async (req, res, next) => {
-    // TODO validate
-    const new_url = req.body as NewURL
-
-    getDb()
-      .then(db =>
-        db.collection<URL>("urls").insertOne(
-          {
-            _id: genId(),
-            url: new_url.url,
-            timestamp: new Date()
-          }
-        ))
-      .then(resp => {
-        res.json({ _id: resp.insertedId })
-      })
-      .catch(error => {
-        if (error.code && error.code == 11000)
-          findByURL()
-        else
-          next(error)
-      })
-
-    // TODO init script (mongo docker)
-    const findByURL = () =>
-      db.collection<URL>("urls").findOne({ url: new_url.url })
-        .then(resp => res.json({ _id: resp._id }))
-        .catch(error => next(error))
-
+// Error handler , TODO handle errors more specfically
+application.use(
+  (error: Error, _r: Request, response: Response, _n: NextFunction) => {
+    console.error("unhandled exception:", error)
+    response
+      .status(500)
+      .json(error)
   })
 
-app.get("/:id", (req, res, next) => {
-  const _id = req?.params?.id
-
-  getDb()
-    .then(db => db.collection("urls").findOne(
-      { _id }, { projection: { _id: 0, url: 1 } }))
-    .then(resp => res.json(resp))
-    .catch(error => {
-      db = null
-      next(error)
-    })
-})
-
-// TODO paginate
-app.get("/", (_req, res, next) => {
-  getDb()
-    .then(db => db.collection("urls").find(
-      { projection: { _id: 1, url: 1 } }))
-    .then(resp => res.json(resp))
-    .catch(error => {
-      db = null
-      next(error)
-    })
-})
-
-// TODO Error handler
-app.use((error: Error, _req: Request, res: Response, _next: NextFunction) => {
-  db = null
-  res.status(422)
-  console.log(error)
-  const dev_info = error
-  res.json({ error: "err", dev_info })
-})
-
-app.listen(port, () => {
-  // TODO setup db here
+application.listen(port, () => {
+  console.log("Shortener running")
 })
