@@ -10,10 +10,11 @@
     "target": "ES6",
     "outDir": "lib",
     "allowUmdGlobalAccess": true,
+    "resolveJsonModule": true
   },
   "include": ["src/**/*.ts", "scripts/*.ts"],
   "exclude": [
-    "node_modules/**/*",
+    "node_modules/**/*"
   ],
   "ts-node": {
     "require": ["tsconfig-paths/register"]
