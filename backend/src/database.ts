@@ -3,7 +3,7 @@ import { Db, MongoClient } from "mongodb";
 // TODO init script (mongo docker)
 const conn_str =
   process.env["SHORTENER_CONN_STRING"]
-  || "mongodb://shortener:shortenerpass@10.6.51.83:27017"
+  || "mongodb://localhost:27017"
 const db_name =
   process.env["SHORTENER_DB_NAME"]
   || "shortener"
