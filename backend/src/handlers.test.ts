@@ -43,9 +43,13 @@ describe("handlers", () => {
 
       expect(res.json).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledWith(
-        mockData
-          .slice(0, 10)
-          .map(u => { delete u.timestamp; delete u.delete_key; return u }))
+        {
+          total: mockData.length,
+          items: mockData
+            .slice(0, 10)
+            .map(u => { delete u.timestamp; delete u.delete_key; return u })
+        })
+
     })
 
     test("gets 30 urls", async () => {
@@ -59,9 +63,12 @@ describe("handlers", () => {
 
       expect(res.json).toHaveBeenCalledTimes(1)
       expect(res.json).toHaveBeenCalledWith(
-        mockData
-          .slice(0, 30)
-          .map(u => { delete u.timestamp; delete u.delete_key; return u }))
+        {
+          total: mockData.length,
+          items: mockData
+            .slice(0, 30)
+            .map(u => { delete u.timestamp; delete u.delete_key; return u })
+        })
     })
 
     test("gets no more than 100 urls", async () => {
@@ -74,10 +81,12 @@ describe("handlers", () => {
       await get(req, res, next)
 
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.json).toHaveBeenCalledWith(
-        mockData
+      expect(res.json).toHaveBeenCalledWith({
+        total: mockData.length,
+        items: mockData
           .slice(0, 100)
-          .map(u => { delete u.timestamp; delete u.delete_key; return u }))
+          .map(u => { delete u.timestamp; delete u.delete_key; return u })
+      })
     })
 
     test("gets 50 urls, skiping 50", async () => {
@@ -90,10 +99,12 @@ describe("handlers", () => {
       await get(req, res, next)
 
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.json).toHaveBeenCalledWith(
-        mockData
+      expect(res.json).toHaveBeenCalledWith({
+        total: mockData.length,
+        items: mockData
           .slice(50, 100)
-          .map(u => { delete u.timestamp; delete u.delete_key; return u }))
+          .map(u => { delete u.timestamp; delete u.delete_key; return u })
+      })
     })
 
     test("gets 0 urls, skiping 500", async () => {
@@ -106,7 +117,7 @@ describe("handlers", () => {
       await get(req, res, next)
 
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.json).toHaveBeenCalledWith([])
+      expect(res.json).toHaveBeenCalledWith({total: mockData.length, items: []})
     })
 
     test("should fail", async () => {
@@ -352,7 +363,7 @@ describe("handlers", () => {
 
       expect(await collection.countDocuments()).toBe(0)
       expect(res.json).toHaveBeenCalledTimes(1)
-      expect(res.json).toHaveBeenCalledWith({}) 
+      expect(res.json).toHaveBeenCalledWith({})
     })
 
   })

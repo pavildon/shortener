@@ -15,17 +15,19 @@ export const makeHandlers = (getURLs: GetURLsFn, gen = genRnd): Handlers => {
       skip: number = +request.query.skip || 0,
       limit: number = Math.min(+(request.query.limit || 10), 100)
 
-    await getURLs()
-      .then(urls => urls
+    try {
+      const urls = await getURLs()
+      const items = urls
         .find({}, { projection: { _id: 1, url: 1 } })
         .skip(skip)
         .limit(limit)
-        .sort({ timestamp: -1 }))
-      .then(db_resp => db_resp.toArray())
-      .then(arr => response.json(arr))
-      .catch(error => {
-        next(error)
-      })
+        .sort({ timestamp: -1 })
+        .toArray()
+      const total = urls.countDocuments()
+      response.json({ total: await total, items: await items })
+    } catch (error) {
+      next(error as Error)
+    }
   }
 
   const getId: GetIdHandler = async (request, response, next) => {
@@ -50,8 +52,7 @@ export const makeHandlers = (getURLs: GetURLsFn, gen = genRnd): Handlers => {
       })
       .catch(error => {
         next(error)
-      }
-      )
+      })
   }
 
   const put: PutHandler = async (request, response, next) => {
