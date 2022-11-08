@@ -23,7 +23,7 @@
     "start": "npm run gen-config; react-scripts start",
     "build": "npm run gen-config building; react-scripts build",
     "build-esb": "npm run gen-config building; esbuild ./src/index.tsx --bundle --minify --sourcemap --outfile=./public/out.js",
-    "test": "react-scripts test",
+    "test": "react-scripts test --forceExit --runInBand",
     "eject": "react-scripts eject",
     "gen-config": "node scripts/gen-config.js"
   },
