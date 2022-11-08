@@ -1,7 +1,6 @@
 import { IShortenerService } from "./types"
 
 const errorMsg = (status: number, error: Error) => {
-  console.log(error.message)
   if (status >= 400 && status < 500)
     return error.message
   else
@@ -27,10 +26,10 @@ export const makeService = (api_url: string, fetchFn = fetch, errorMsgFn = error
     const query = `?skip=${skip}&limit=${limit}`
     try {
       const resp = await fetchFn(api_url + query)
-      if (!resp.ok) throw new Error(errorMsgFn(resp.status, await resp.json()))
+      if (!resp.ok) return errorMsgFn(resp.status, await resp.json())
       return resp.json()
     } catch (e) {
-      throw new Error(errorMsg(0, e as Error))
+      return errorMsg(0, e as Error)
     }
   }
 

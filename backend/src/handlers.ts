@@ -39,20 +39,18 @@ export const makeHandlers = (getURLs: GetURLsFn, gen = genRnd): Handlers => {
       return
     }
 
-    await getURLs()
-      .then(urls => urls
-        .findOne({ _id }, { projection: { _id: 0, url: 1 } }))
-      .then(resp => {
-        if (!resp)
-          response
-            .status(404)
-            .json(not_found_error)
-        else
-          response.json(resp)
-      })
-      .catch(error => {
-        next(error)
-      })
+    try {
+      const urls = await getURLs()
+      const resp = await urls.findOne({ _id }, { projection: { _id: 0, url: 1 } })
+      if (!resp)
+        response
+          .status(404)
+          .json(not_found_error)
+      else
+        response.json(resp)
+    } catch (error) {
+      next(error as Error)
+    }
   }
 
   const put: PutHandler = async (request, response, next) => {
@@ -61,31 +59,30 @@ export const makeHandlers = (getURLs: GetURLsFn, gen = genRnd): Handlers => {
     if (!validURL(new_url.url)) {
       response
         .status(400)
-        .json({
-          message: "URL null or invalid (only https protocol is valid)",
-          name: "InvalidURL"
-        })
+        .json(invalid_url_error)
       return
     }
 
-    const
-      _id = gen(id_chars),
-      delete_key = gen(delete_key_chars)
+    try {
+      const
+        _id = gen(id_chars),
+        delete_key = gen(delete_key_chars)
 
-    await getURLs()
-      .then(urls => urls.insertOne({
+      const urls = await getURLs()
+      const resp = await urls.insertOne({
         _id,
         delete_key,
         url: new_url.url,
         timestamp: new Date()
-      }))
-      .then(db_resp => {
-        response.json({
-          _id: db_resp.insertedId,
-          delete_key
-        })
       })
-      .catch(error => next(error))
+
+      response.json({
+        _id: resp.insertedId,
+        delete_key
+      })
+    } catch (error) {
+      next(error)
+    }
   }
 
   const del: DeleteHandler = async (request, response, next) => {
@@ -140,6 +137,10 @@ export const invalid_url_id_error: Error = {
   name: "InvalidID",
   message: "Invalid url ID"
 }
+export const invalid_url_error: Error = {
+  message: "URL null or invalid (only https protocol is valid)",
+  name: "InvalidURL"
+}
 
 export const genRnd = (length: number) => {
   const az09 = "abcdefghijklmnopqrstuvwxyz0123456789"
@@ -152,6 +153,7 @@ export const genRnd = (length: number) => {
 
 const validURL = (url_str: string): boolean => {
   const protocols = ["https:"]
+  if(url_str?.length > 2048) return false
   try {
     const url = new URL(url_str)
     if (protocols.includes(url.protocol))
