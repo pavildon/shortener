@@ -4,7 +4,7 @@
   "description": "Backen service for a url shortener",
   "scripts": {
     "dev": "nodemon src/app.ts",
-    "test": "jest",
+    "test": "jest --forceExit",
     "test_watch": "jest --watch",
     "build": "npx esbuild --bundle --outdir=dist --platform=node --minify ./src/app.ts"
   },
