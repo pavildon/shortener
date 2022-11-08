@@ -1,0 +1,387 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should show 1 url 1`] = `
+<div
+  className="w3-container w3-panel"
+>
+  <h4>
+    latests URLs
+  </h4>
+  <div
+    className="w3-left-align w3-monospace"
+  >
+    <ol
+      start={1}
+      style={
+        Object {
+          "listStyleType": "decimal-leading-zero",
+          "minHeight": "315px",
+          "padding": "0px",
+        }
+      }
+    >
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="www.google.com"
+        >
+          https://pbid.io
+          /
+          abcdefgh
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          www.google.com
+        </i>
+      </li>
+    </ol>
+  </div>
+  <button
+    className="w3-btn"
+    data-testid="prev"
+    onClick={[Function]}
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
+  >
+    ← prev
+  </button>
+  <button
+    className="w3-btn"
+    data-testid="next"
+    onClick={[Function]}
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
+  >
+    next →
+  </button>
+</div>
+`;
+
+exports[`should show 10 url and the next button 1`] = `
+<div
+  className="w3-container w3-panel"
+>
+  <h4>
+    latests URLs
+  </h4>
+  <div
+    className="w3-left-align w3-monospace"
+  >
+    <ol
+      start={1}
+      style={
+        Object {
+          "listStyleType": "decimal-leading-zero",
+          "minHeight": "315px",
+          "padding": "0px",
+        }
+      }
+    >
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000000.com"
+        >
+          https://pbid.io
+          /
+          00000000
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000000.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000001.com"
+        >
+          https://pbid.io
+          /
+          00000001
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000001.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000002.com"
+        >
+          https://pbid.io
+          /
+          00000002
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000002.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000003.com"
+        >
+          https://pbid.io
+          /
+          00000003
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000003.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000004.com"
+        >
+          https://pbid.io
+          /
+          00000004
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000004.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000005.com"
+        >
+          https://pbid.io
+          /
+          00000005
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000005.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000006.com"
+        >
+          https://pbid.io
+          /
+          00000006
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000006.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000007.com"
+        >
+          https://pbid.io
+          /
+          00000007
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000007.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000008.com"
+        >
+          https://pbid.io
+          /
+          00000008
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000008.com
+        </i>
+      </li>
+      <li
+        style={
+          Object {
+            "borderBottom": "1px solid #ddd",
+            "listStylePosition": "inside",
+            "overflow": "hidden",
+            "padding": "4px",
+            "textOverflow": "ellipsis",
+            "whiteSpace": "nowrap",
+          }
+        }
+      >
+        <a
+          href="https://000000000009.com"
+        >
+          https://pbid.io
+          /
+          00000009
+        </a>
+        <i
+          className="w3-light-gray w3-margin"
+        >
+          https://000000000009.com
+        </i>
+      </li>
+    </ol>
+  </div>
+  <button
+    className="w3-btn"
+    data-testid="prev"
+    onClick={[Function]}
+    style={
+      Object {
+        "visibility": "hidden",
+      }
+    }
+  >
+    ← prev
+  </button>
+  <button
+    className="w3-btn"
+    data-testid="next"
+    onClick={[Function]}
+    style={
+      Object {
+        "visibility": "visible",
+      }
+    }
+  >
+    next →
+  </button>
+</div>
+`;
+
+exports[`should show loading... 1`] = `
+<div
+  className="w3-container w3-panel"
+>
+  <h4>
+    latests URLs
+  </h4>
+  <i>
+    loading... 
+  </i>
+</div>
+`;
