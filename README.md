@@ -13,6 +13,6 @@ cd shortener
 # it will take a while (it runs the tests)
 docker build -t shortener .
 
-# the frontend is going to be in the port 8080 and the backend in port 3000
+# the frontend is going to be in the port 8080 and the backend in port 3001
 docker run -it --rm shortener
 ```
